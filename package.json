@@ -1,16 +1,22 @@
 {
   "name": "ghosttyper",
   "displayName": "ghosttyper",
+  "publisher": "PND",
   "description": "Type faster. Stay in the flow.",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.0.0"
+    "vscode": "^1.60.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swen128/ghosttyper.git"
+  },
+  "license": "MIT",
   "contributes": {
     "commands": [
       {
@@ -30,7 +36,10 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run compile",
+    "vscode:prepublish": "pnpm run bundle",
+    "vscode:publish": "vsce publish --no-dependencies",
+    "bundle": "esbuild ./src/extension.ts --bundle --minify --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "package": "vsce package --no-dependencies",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
@@ -40,10 +49,12 @@
   "devDependencies": {
     "@types/mocha": "^10.0.6",
     "@types/node": "~18.18.12",
-    "@types/vscode": "^1.84.2",
+    "@types/vscode": "1.60.0",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vscode/test-electron": "^2.3.7",
+    "@vscode/vsce": "^2.22.0",
+    "esbuild": "^0.19.7",
     "eslint": "^8.54.0",
     "glob": "^10.3.10",
     "mocha": "^10.2.0",
