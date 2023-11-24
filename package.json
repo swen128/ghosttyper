@@ -31,7 +31,8 @@
     "keybindings": [
       {
         "command": "ghosttyper.fixTypo",
-        "key": "ctrl+;"
+        "key": "ctrl+;",
+        "when": "editorTextFocus"
       }
     ]
   },
