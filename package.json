@@ -1,0 +1,55 @@
+{
+  "name": "ghosttyper",
+  "displayName": "ghosttyper",
+  "description": "Type faster. Stay in the flow.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ghosttyper.fixTypo",
+        "title": "GhostTyper: Fix Typo"
+      },
+      {
+        "command": "ghosttyper.setOpenAiApiKey",
+        "title": "GhostTyper: Set OpenAI API Key"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ghosttyper.fixTypo",
+        "key": "ctrl+;"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "~18.18.12",
+    "@types/vscode": "^1.84.2",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "@vscode/test-electron": "^2.3.7",
+    "eslint": "^8.54.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "openai": "^4.20.0"
+  }
+}
