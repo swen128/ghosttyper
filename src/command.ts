@@ -65,9 +65,13 @@ async function typoCorrection(model: TypoCorrectionModel, document: vscode.TextD
     // To avoid that, we trim the text manually and re-add the spaces later.
     const { leadingSpaces, trailingSpaces, trimmed } = trim(originalText);
     const result = await model.getCorrection(trimmed);
-    const newText = leadingSpaces + result.text + trailingSpaces;
-
-    return new vscode.TextEdit(range, newText);
+    
+    switch (result.kind) {
+        case 'no-typo':
+            return new vscode.TextEdit(range, originalText);
+        case 'fixed':
+            return new vscode.TextEdit(range, leadingSpaces + result.text + trailingSpaces);
+    }
 }
 
 function trim(string: string): { leadingSpaces: string, trailingSpaces: string, trimmed: string } {

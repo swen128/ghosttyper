@@ -2,6 +2,13 @@ export interface TypoCorrectionModel {
     getCorrection(text: string): Promise<TypoCorrection>;
 }
 
-interface TypoCorrection {
+type TypoCorrection = TypoFixed | NoTypo;
+
+interface TypoFixed {
+    kind: 'fixed';
     text: string;
+}
+
+interface NoTypo {
+    kind: 'no-typo';
 }
