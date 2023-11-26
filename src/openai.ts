@@ -7,6 +7,7 @@ export function getOpenAiTypoCorrectionModel(openai: OpenAI): TypoCorrectionMode
             const response = await openai.chat.completions.create({
                 model: "gpt-3.5-turbo-1106",
                 temperature: 0.0,
+                response_format: { type: "json_object" },
                 messages: [
                     { role: "system", content: systemMessage },
                     { role: "user", content: originalText },
@@ -14,19 +15,20 @@ export function getOpenAiTypoCorrectionModel(openai: OpenAI): TypoCorrectionMode
             }, { timeout: 10 * 1000 });
 
             const message = response.choices[0]?.message?.content;
+
             if (message === null) {
-                throw new Error("No response message from OpenAI chat completion.");
+                throw new Error("No response message from OpenAI chat completion API.");
             }
-            return message?.trim() !== ""
-                ? { kind: "fixed", text: message }
-                : { kind: "no-typo" };
+
+            const json = JSON.parse(message);
+
+            return json.fixed !== undefined
+                ? { kind: "fixed", text: json.fixed }
+                : { kind: "noTypo" };
         }
     };
 }
 
-const systemMessage = `You are a typo correcting bot. Fix typos in the input text and return only the fixed text. If there is no typo, return empty string.
-Input: "Im typoing this very fats"
-Output: "I'm typing this very fast"
-
-Input: "There's no typo here."
-Output: ""`;
+const systemMessage = `You are a typo correcting bot.
+Respond with a JSON of the type \`{ fixed?: string }\`.
+Return {} if you find no typo.`;

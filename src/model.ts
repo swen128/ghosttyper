@@ -10,5 +10,5 @@ interface TypoFixed {
 }
 
 interface NoTypo {
-    kind: 'no-typo';
+    kind: 'noTypo';
 }

@@ -67,7 +67,7 @@ async function typoCorrection(model: TypoCorrectionModel, document: vscode.TextD
     const result = await model.getCorrection(trimmed);
     
     switch (result.kind) {
-        case 'no-typo':
+        case 'noTypo':
             return new vscode.TextEdit(range, originalText);
         case 'fixed':
             return new vscode.TextEdit(range, leadingSpaces + result.text + trailingSpaces);
