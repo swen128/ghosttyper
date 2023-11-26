@@ -7,10 +7,11 @@ export function getOpenAiTypoCorrectionModel(openai: OpenAI): TypoCorrectionMode
             const response = await openai.chat.completions.create({
                 model: "gpt-3.5-turbo-1106",
                 temperature: 0.0,
+                seed: 0,
                 response_format: { type: "json_object" },
                 messages: [
                     { role: "system", content: systemMessage },
-                    { role: "user", content: originalText },
+                    { role: "user", content: JSON.stringify({ originalText }) },
                 ],
             }, { timeout: 10 * 1000 });
 
@@ -29,6 +30,6 @@ export function getOpenAiTypoCorrectionModel(openai: OpenAI): TypoCorrectionMode
     };
 }
 
-const systemMessage = `You are a typo correcting bot.
+const systemMessage = `Spot any typos in the "originalText".
 Respond with a JSON of the type \`{ fixed?: string }\`.
 Return {} if you find no typo.`;
