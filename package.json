@@ -2,8 +2,13 @@
   "name": "ghosttyper",
   "displayName": "GhostTyper",
   "publisher": "PND",
-  "description": "Type faster. Stay in the flow.",
-  "version": "0.0.4",
+  "description": "Automaticlly fixes typos in seconds.",
+  "keywords": [
+    "AI",
+    "AI Tools",
+    "Copilot"
+  ],
+  "version": "0.0.5",
   "engines": {
     "vscode": "^1.60.0"
   },
