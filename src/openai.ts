@@ -5,7 +5,7 @@ export function getOpenAiTypoCorrectionModel(openai: OpenAI): TypoCorrectionMode
     return {
         getCorrection: async (originalText) => {
             const response = await openai.chat.completions.create({
-                model: "gpt-3.5-turbo-1106",
+                model: "gpt-4o-mini-2024-07-18",
                 temperature: 0.0,
                 seed: 0,
                 response_format: { type: "json_object" },
